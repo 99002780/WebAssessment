@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display and Add</title>
+    <script src="../empData.js"></script>
+    <script src="../Common.js"></script>
+    <script>
+
+        let mgr = new empManager();
+        function init(){
+            $hide("div1");
+            $hide("div2");
+            mgr.addEmployee(new employee(123, "Pritha", "Bangalore"));
+            mgr.addEmployee(new employee(124, "Preethi", "Mysore"));
+            mgr.addEmployee(new employee(125, "Archu", "Pune"));
+            mgr.addEmployee(new employee(126, "Ram", "Chennai"));
+        }
+
+        function AddClick(){
+            $hide("div1");
+            $show("div2");
+        }
+        function AddEmployee(){
+            let id = $("newId").value;
+            let name = $("newName").value;
+            let address = $("newAddress").value;
+            let emp = new employee(id, name, address)
+            mgr.addEmployee(emp);
+            $("newId").value ="";
+            $("newName").value ="";
+            $("newAddress").value ="";
+            alert("Employee added successfully");
+        }
+
+        function Records(){
+            $hide("div2");
+            $show("div1");
+           let heading = `<tr><th>Emp ID</th><th>Emp Name</th><th>Emp Address</th><th>`;
+            $("tblRecords").innerHTML = heading;
+            $show("div1");
+            let data = mgr.getAll();
+            data.forEach(emp => {
+                let row = `<tr><td>${emp.empId}</td><td>${emp.empName}</td><td>${emp.empAddress}</td><td>`;
+                $('tblRecords').innerHTML += row;
+                $mapEvent("edit", function(){
+                    debugger;
+                    let selectedId = this.attributes["sid"].value;
+                    let empObj = mgr.findEmployee(selectedId);
+                    $("empId").innerText = empObj.empId;
+                    $("empName").value = empObj.empName;
+                    $("empAddress").value = empObj.empAddress;
+                    $hide("div1");
+                    $hide("div2");
+                })
+
+                    
+
+                })
+            }
+      
+    </script>
+</head>
+<body onload="init()">
+    <header>
+        <nav>
+            <a href="#" onclick="Records()">View All</a>
+            <a href="#" onclick="AddClick()">New Employee</a>
+        </nav>
+    </header>
+    <section>
+       <div id="div1">
+           <h2>List of Employees with Us!!!!</h2>
+           <table id="tblRecords" border="1" width="100%">
+               
+           </table>
+       </div>
+       <div id="div2">
+            <h2>Add the Details of the Employee</h2>
+            <p>Employee ID: <input type="number" id="newId"> </p>
+            <p>Employee Name: <input type="text" id="newName"></p>
+            <p>Employee Address: <input type="text" id="newAddress"></p>
+            <p><button onclick="AddEmployee()">Add Employee</button></p>
+       </div> 
+    </section>
+</body>
+</html>
