@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Form</title>
+    <script>
+        function display() {
+        DispWin = window.open('','NewWin', 'toolbar=no,status=no,width=300,height=200')
+        message = "<ul><li><b>NAME: </b>" + document.form1.pName.value;
+        message += "<li><b>DOB: </b>" + document.form1.pDOB.value;
+        message += "<li><b>QUALIFICATION: </b>" + document.form1.pQualification.value + "</ul>";
+        message += "<li><b>STAYING IN: </b>" + document.form1.pStay.value + "</ul>";
+  
+  DispWin.document.write(message);
+}
+    </script>
+    <style>
+        form{
+            
+            font-size: 18pt;
+        }
+        *{
+            background-color: bisque;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="font-size: 25pt"><b>Details of the Person</b></h1>
+    <form name="form1">
+        <p>Enter the Name<p><input type="text" placeholder="" name="pName" /></p>
+       <p> DOB<input type="date" placeholder="" name="pDOB" /></p>
+        <p>
+            Select the qualification</br>
+            <select name="pQualification">
+                <option>------select-------</option>
+                <option>Graduation</option>
+                <option>Under Graduation</option>
+                <option>Post Graduation</option>
+                <option>Pre University</option>
+                <option>School</option>
+            </select>
+            <p>
+                 Staying In: <input type="radio" name="pStay">Home <input type="radio" name="pStay">Hostel</p>
+            </p>
+        <div>
+        <button type="button" onclick="display()"><b>Register</b></button>
+        </div>
+        </form>
+</body>
+</html>
